@@ -123,7 +123,7 @@ namespace WpfApp4
 
         }
 
-        private void clickCopy(object sender, RoutedEventArgs e)
+        private async void clickCopy(object sender, RoutedEventArgs e)
         {
             // Process.Start(olduser.PathOfFireFox);
             //
@@ -132,8 +132,14 @@ namespace WpfApp4
 
             try
             {
-                string from = "from: " + olduser.PathOfFireFox;
-                string to =  "to " + newuser.PathOfFireFox;
+                
+                    FAspinning.Spin = true;
+                    FAspinning.Visibility = Visibility.Visible;
+               
+               
+
+                string from = "from: " + olduser.PathOfFireFox + "\n";
+                string to =  "to " + newuser.PathOfFireFox + "\n";
 
                 string log = from;
 
@@ -143,34 +149,89 @@ namespace WpfApp4
 
 
                 //MessageBox.Show(s);
+                //await Task.Run(()=>
+                //{
+                    olduser.Logs = olduser.Logs + "begin copy fireFox's profile \n";
 
-                olduser.Logs = olduser.Logs + "begin copy fireFox's profile";
-                new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfFireFox, newuser.PathOfFireFox ,true);
+                await Task.Run(()=> {
+                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfFireFox, newuser.PathOfFireFox, true);
+                });
+                   
 
-                olduser.Logs = olduser.Logs + "copy done of fireFox's profile";
+                    olduser.Logs = olduser.Logs + "copy done of fireFox's profile\n";
 
-                olduser.Logs = olduser.Logs + "begin copy chrome's profile";
-                new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfChrome, newuser.PathOfChrome, true);
-                olduser.Logs = olduser.Logs + "copy done of chrome's profile";
+                //olduser.Logs = olduser.Logs + "begin copy chrome's profile\n";
+                //new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfChrome, newuser.PathOfChrome, true);
+                //olduser.Logs = olduser.Logs + "copy done of chrome's profile\n";
+
+                //if (_isFavorites.IsChecked == true)
+                //{
+                //    olduser.Logs = olduser.Logs + "copying Favorites\n";
+                //    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.Favorites, newuser.Favorites, true);
+                //    olduser.Logs = olduser.Logs + "copy done of Favorites\n";
+                //}
+
+                //if (_isDownload.IsChecked == true)
+                //{
+                //    olduser.Logs = olduser.Logs + "copying Downloads \n";
+                //    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.DownloadsPath, newuser.DownloadsPath, true);
+                //    olduser.Logs = olduser.Logs + "copy done of Downloads \n";
+                //}
+
+                //});
+
+                //await Task.Run(() =>
+                //{
+
+                await Task.Run(() => {
+                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfChrome, newuser.PathOfChrome, true);
+                });
+
+
+                olduser.Logs = olduser.Logs + "begin copy chrome's profile\n";
+                //new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfChrome, newuser.PathOfChrome, true);
+                olduser.Logs = olduser.Logs + "copy done of chrome's profile\n";
+
+
+                //});
+
+                // await Task.Run(() =>
+                // {
+
 
                 if (_isFavorites.IsChecked == true)
-                {
-                    olduser.Logs = olduser.Logs + "copying Favorites";
-                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.Favorites, newuser.Favorites, true);
-                    olduser.Logs = olduser.Logs + "copy done of Favorites";
-                }
+                    {
+                        olduser.Logs = olduser.Logs + "copying Favorites\n";
+                    await Task.Run(() => {
+                        new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.Favorites, newuser.Favorites, true);
+                    });
+                    
+                        olduser.Logs = olduser.Logs + "copy done of Favorites\n";
+                    }
 
-                if (_isDownload.IsChecked == true)
-                {
-                    olduser.Logs = olduser.Logs + "copying Downloads";
-                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.DownloadsPath, newuser.DownloadsPath, true);
-                    olduser.Logs = olduser.Logs + "copy done of Downloads";
-                }
+
+              //  });
+
+               // await Task.Run(() =>
+               // {
+                                      
+
+                    if (_isDownload.IsChecked == true)
+                    {
+                        olduser.Logs = olduser.Logs + "copying Downloads \n";
+                        await Task.Run(() => {
+                            new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.DownloadsPath, newuser.DownloadsPath, true);
+                        });
+                    
+                        olduser.Logs = olduser.Logs + "copy done of Downloads \n";
+                    }
+
+               // });
 
                 // string s = Reader.ReadFirefoxProfile();
                 // MessageBox.Show(s);
 
-                MessageBox.Show("copy done");
+
             }
             catch (Exception ex )
             {
@@ -185,7 +246,14 @@ namespace WpfApp4
                                
                 throw;
             }
-            
+            finally
+            {
+                FAspinning.Spin = false;
+                FAspinning.Visibility = Visibility.Hidden;
+
+            }
+            MessageBox.Show("copy done");
+
 
         }
 

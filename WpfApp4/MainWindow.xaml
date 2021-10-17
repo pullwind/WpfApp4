@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:WpfApp4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closing="beforeClosing">
@@ -51,6 +52,9 @@
                     <DockPanel>
                         <Label DockPanel.Dock="Top" Content="add new account to administrator at begining"/>
                         <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top" Text="export password of chrome in old account,  chrome://flags enable import in new account later" />
+                        <Border Height="48">
+                            <fa:ImageAwesome Name="FAspinning" Icon="Spinner" Spin="False" SpinDuration="1" Visibility="Hidden" Margin="0"  VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
                     </DockPanel>
                 </Border>
             </DockPanel>
