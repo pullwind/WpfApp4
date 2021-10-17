@@ -21,7 +21,19 @@
                     <Button DockPanel.Dock="Right" Content="Old account" Click="clickOldAccount" Margin="10,5,10,5"></Button>
                     <TextBox x:Name="oldUserName" Text="{Binding Path=ProfilePath}" />
                 </DockPanel>
-                <Border></Border>
+                <Border>
+                    <DockPanel>
+                        <GroupBox DockPanel.Dock="Top" Header="folders which need copy">
+                            <StackPanel Margin="5">
+                                <CheckBox Content="Download" x:Name="_isDownload" IsChecked="True" />
+                                <CheckBox Content="Favorites" x:Name="_isFavorites"  IsChecked="True"/>
+                                <CheckBox Content="2 test" x:Name="_is2Download" />
+                            </StackPanel>
+                        </GroupBox>
+                        <TextBox AcceptsReturn="True"   x:Name="textBoxOfLogs" Text="{Binding Path=Logs}" ></TextBox>
+                    </DockPanel>
+                    
+                </Border>
             </DockPanel>
         </Border>
         <Border Grid.Column="1" Margin="10" >
@@ -31,10 +43,16 @@
                     <TextBox Text="{Binding Path=ProfilePath}"/>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top" Height="40">
-                    <Button DockPanel.Dock="Right" Content="  Copy  " Click="clickCopy" Margin="10,5,10,5"></Button>
+                    <Button DockPanel.Dock="Right" Content="     Copy      " Click="clickCopy" Margin="10,5,10,5"></Button>
+                    <Button DockPanel.Dock="Right" Content="Run Browser at first" Click="clickRunBrowser" Margin="10,5,10,5" />
                     <TextBox/>
                 </DockPanel>
-                <Border></Border>
+                <Border>
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top" Content="add new account to administrator at begining"/>
+                        <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top" Text="export password of chrome in old account,  chrome://flags enable import in new account later" />
+                    </DockPanel>
+                </Border>
             </DockPanel>
         </Border>
           
