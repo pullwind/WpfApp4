@@ -1,0 +1,42 @@
+﻿<Window x:Class="WpfApp4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Closing="beforeClosing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Margin="10">
+            <DockPanel>
+                <DockPanel x:Name="DPOldUser" DockPanel.Dock="Top" Height="40">
+                    <Button DockPanel.Dock="Right" Content="Old account" Click="clickOldAccount" Margin="10,5,10,5"></Button>
+                    <TextBox x:Name="oldUserName" Text="{Binding Path=ProfilePath}" />
+                </DockPanel>
+                <Border></Border>
+            </DockPanel>
+        </Border>
+        <Border Grid.Column="1" Margin="10" >
+            <DockPanel>
+                <DockPanel x:Name="DPNewUser" DockPanel.Dock="Top" Height="40">
+                    <Button DockPanel.Dock="Right" Content="new account" Click="clickNewAccount" Margin="10,5,10,5"></Button>
+                    <TextBox Text="{Binding Path=ProfilePath}"/>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top" Height="40">
+                    <Button DockPanel.Dock="Right" Content="  Copy  " Click="clickCopy" Margin="10,5,10,5"></Button>
+                    <TextBox/>
+                </DockPanel>
+                <Border></Border>
+            </DockPanel>
+        </Border>
+          
+    </Grid>
+</Window>
