@@ -139,7 +139,7 @@ namespace WpfApp4
                
 
                 string from = "from: " + olduser.PathOfFireFox + "\n";
-                string to =  "to " + newuser.PathOfFireFox + "\n";
+                string to =  "to  : " + newuser.PathOfFireFox + "\n";
 
                 string log = from;
 
@@ -147,91 +147,10 @@ namespace WpfApp4
 
                 olduser.Logs = from + to;
 
+                await copyDirectoryAsync(olduser, newuser, "");
 
-                //MessageBox.Show(s);
-                //await Task.Run(()=>
-                //{
-                    olduser.Logs = olduser.Logs + "begin copy fireFox's profile \n";
-
-                await Task.Run(()=> {
-                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfFireFox, newuser.PathOfFireFox, true);
-                });
-                   
-
-                    olduser.Logs = olduser.Logs + "copy done of fireFox's profile\n";
-
-                //olduser.Logs = olduser.Logs + "begin copy chrome's profile\n";
-                //new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfChrome, newuser.PathOfChrome, true);
-                //olduser.Logs = olduser.Logs + "copy done of chrome's profile\n";
-
-                //if (_isFavorites.IsChecked == true)
-                //{
-                //    olduser.Logs = olduser.Logs + "copying Favorites\n";
-                //    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.Favorites, newuser.Favorites, true);
-                //    olduser.Logs = olduser.Logs + "copy done of Favorites\n";
-                //}
-
-                //if (_isDownload.IsChecked == true)
-                //{
-                //    olduser.Logs = olduser.Logs + "copying Downloads \n";
-                //    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.DownloadsPath, newuser.DownloadsPath, true);
-                //    olduser.Logs = olduser.Logs + "copy done of Downloads \n";
-                //}
-
-                //});
-
-                //await Task.Run(() =>
-                //{
-
-                await Task.Run(() => {
-                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfChrome, newuser.PathOfChrome, true);
-                });
-
-
-                olduser.Logs = olduser.Logs + "begin copy chrome's profile\n";
-                //new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.PathOfChrome, newuser.PathOfChrome, true);
-                olduser.Logs = olduser.Logs + "copy done of chrome's profile\n";
-
-
-                //});
-
-                // await Task.Run(() =>
-                // {
-
-
-                if (_isFavorites.IsChecked == true)
-                    {
-                        olduser.Logs = olduser.Logs + "copying Favorites\n";
-                    await Task.Run(() => {
-                        new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.Favorites, newuser.Favorites, true);
-                    });
-                    
-                        olduser.Logs = olduser.Logs + "copy done of Favorites\n";
-                    }
-
-
-              //  });
-
-               // await Task.Run(() =>
-               // {
-                                      
-
-                    if (_isDownload.IsChecked == true)
-                    {
-                        olduser.Logs = olduser.Logs + "copying Downloads \n";
-                        await Task.Run(() => {
-                            new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(olduser.DownloadsPath, newuser.DownloadsPath, true);
-                        });
-                    
-                        olduser.Logs = olduser.Logs + "copy done of Downloads \n";
-                    }
-
-               // });
-
-                // string s = Reader.ReadFirefoxProfile();
-                // MessageBox.Show(s);
-
-
+               
+                 
             }
             catch (Exception ex )
             {
@@ -277,6 +196,50 @@ namespace WpfApp4
                 Process.Start(f );
             }
             
+        }
+
+        private async Task copyDirectoryAsync(UserInfo old, UserInfo newuser, string dir)
+        {
+            var c = new Microsoft.VisualBasic.Devices.Computer();
+
+            olduser.Logs = olduser.Logs + "copying fireFox's profile \n";
+            olduser.Logs = olduser.Logs + "copying chrome's profile\n";
+           
+
+           // List<string> logs = new List<string>();
+            List<Task> tasks = new List<Task>();
+
+
+            tasks.Add(Task.Run(() => c.FileSystem.CopyDirectory(old.PathOfFireFox, newuser.PathOfFireFox, true)));
+            tasks.Add(Task.Run(() => c.FileSystem.CopyDirectory(old.PathOfChrome, newuser.PathOfChrome, true)));
+
+            if (_isDownload.IsChecked == true)
+            {
+                olduser.Logs = olduser.Logs + "copying Downloads \n";
+                await Task.Run(() => {
+                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(old.DownloadsPath, newuser.DownloadsPath, true);
+
+                });
+
+                olduser.Logs = olduser.Logs + "copy done of Downloads \n";
+            }
+
+            if (_isFavorites.IsChecked == true)
+            {
+                olduser.Logs = olduser.Logs + "copying Favorites\n";
+                await Task.Run(() => {
+                    new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(old.Favorites, newuser.Favorites, true);
+
+                });
+
+                olduser.Logs = olduser.Logs + "copy done of Favorites \n";
+            }
+
+            // tasks.Add( Task.Run(() => { c.FileSystem.CopyDirectory(olduser.DownloadsPath, newuser.DownloadsPath, true); }));
+
+            await Task.WhenAll(tasks);
+
+
         }
     }
 }
