@@ -7,6 +7,23 @@
         xmlns:local="clr-namespace:WpfApp4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closing="beforeClosing">
+ <Window.Resources>
+        <Style TargetType="{x:Type Label}" >
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="MaxHeight" Value="60" />
+        </Style>
+        <Style TargetType="{x:Type Border}" >
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Background" Value="#BBDEFB"  />
+            <Setter Property="CornerRadius" Value="10" />
+
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
