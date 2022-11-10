@@ -1,0 +1,26 @@
+<TabControl x:Name="myTabControl" TabStripPlacement="Left" Margin="0,0,0,5" SelectionChanged="TabControl_SelectionChanged" >
+
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <RotateTransform Angle="00" />
+
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="MinHeight" Value="100"/>
+                    <Setter Property="MinWidth" Value="100" />
+                </Style>
+
+            </TabControl.ItemContainerStyle>
+            <TabItem  MinWidth="100"  x:Name ="folderAndSecurity" >
+                <TabItem.Header >
+                    <DockPanel MaxHeight="80" >
+                        <Label DockPanel.Dock="Bottom">
+                            <Label.Content>
+                                <AccessText TextWrapping="WrapWithOverflow" Text="{DynamicResource sharingFolder}" />
+                            </Label.Content>
+                        </Label>
+                        <Image Source="/img/Share-FolderOringe.png" MaxHeight="40"/>
+                    </DockPanel>
+                </TabItem.Header>
